@@ -355,6 +355,28 @@ footer {
   font-size: 12px;
 }
 
+.footer-badges {
+  margin-top: 0.75rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.badge {
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 11px;
+  padding: 0.1rem 0.45rem;
+  border-radius: 3px;
+  font-family: var(--font);
+  transition: border-color 0.15s, color 0.15s;
+}
+.badge:hover {
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+  text-decoration: none;
+}
+
 .cursor {
   color: var(--accent-green);
   animation: blink 1s step-end infinite;
