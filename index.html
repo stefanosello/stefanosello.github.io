@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <script>/* prevent flash */ (function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}());</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stefano Sello — Senior Software Engineer</title>
   <meta name="description" content="Senior Software Engineer specialising in backend systems, distributed architectures, and developer tooling. Based in Treviso, Italy." />
@@ -38,6 +39,7 @@
 
   <!-- ── Header ─────────────────────────────────────────── -->
   <header class="h-card">
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour scheme"></button>
     <!-- h-card identity anchors -->
     <a class="u-url u-uid" href="https://stefanosello.github.io/" rel="me" hidden></a>
     <data class="p-name" value="Stefano Sello" hidden></data>
@@ -273,6 +275,7 @@
 </div>
 
 <script>
+  // ── Typing animation ──────────────────────────────────────
   (function () {
     const el = document.getElementById('typed-name');
     const text = 'stefano sello';
@@ -284,12 +287,36 @@
         setTimeout(tick, i === 1 ? 300 : 80);
       }
     }
-    // Respect reduced motion preference
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       el.textContent = text;
     } else {
       tick();
     }
+  })();
+
+  // ── Theme toggle ──────────────────────────────────────────
+  (function () {
+    const toggle = document.getElementById('theme-toggle');
+    const mql = window.matchMedia('(prefers-color-scheme: light)');
+
+    function effective() {
+      return document.documentElement.getAttribute('data-theme')
+        || (mql.matches ? 'light' : 'dark');
+    }
+
+    function refresh() {
+      toggle.textContent = effective() === 'dark' ? '☀ light' : '☾ dark';
+    }
+
+    toggle.addEventListener('click', function () {
+      const next = effective() === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      refresh();
+    });
+
+    mql.addEventListener('change', refresh);
+    refresh();
   })();
 </script>
 </body>

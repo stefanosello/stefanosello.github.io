@@ -2,6 +2,7 @@
    stefanosello.github.io — stylesheet
    ========================================================= */
 
+/* ── Colour tokens ───────────────────────────────────────── */
 :root {
   --bg-primary:    #0d1117;
   --bg-surface:    #161b22;
@@ -11,6 +12,40 @@
   --comment-color: #6e7681;
   --border:        #30363d;
   --font:          'JetBrains Mono', monospace;
+}
+
+/* Light mode — system preference */
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-primary:    #ffffff;
+    --bg-surface:    #f6f8fa;
+    --text-primary:  #1f2328;
+    --text-muted:    #57606a;
+    --accent-green:  #1a7f37;
+    --comment-color: #6e7781;
+    --border:        #d0d7de;
+  }
+}
+
+/* Manual overrides (set via JS / localStorage) */
+[data-theme="dark"] {
+  --bg-primary:    #0d1117;
+  --bg-surface:    #161b22;
+  --text-primary:  #e6edf3;
+  --text-muted:    #7d8590;
+  --accent-green:  #7ee787;
+  --comment-color: #6e7681;
+  --border:        #30363d;
+}
+
+[data-theme="light"] {
+  --bg-primary:    #ffffff;
+  --bg-surface:    #f6f8fa;
+  --text-primary:  #1f2328;
+  --text-muted:    #57606a;
+  --accent-green:  #1a7f37;
+  --comment-color: #6e7781;
+  --border:        #d0d7de;
 }
 
 /* ── Reset ─────────────────────────────────────────────── */
@@ -25,6 +60,7 @@ body {
   background: var(--bg-primary);
   color: var(--text-primary);
   padding: 0 1rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 a {
@@ -54,9 +90,32 @@ section {
   margin-bottom: 1.5rem;
 }
 
+/* ── Theme toggle ────────────────────────────────────────── */
+.theme-toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-family: var(--font);
+  font-size: 11px;
+  padding: 0.25rem 0.6rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.theme-toggle:hover {
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+}
+
 /* ── Header ─────────────────────────────────────────────── */
 header {
+  position: relative;
   margin-bottom: 3rem;
+  /* smooth theme transition on key surfaces */
+  transition: background-color 0.2s ease;
 }
 
 .prompt {
@@ -251,7 +310,7 @@ header {
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: 1.25rem 1.5rem;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, background-color 0.2s ease;
 }
 
 .project-card:hover {
