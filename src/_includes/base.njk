@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <script>/* prevent flash */ (function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}());</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ description }}" />
+  <link rel="canonical" href="https://stefanosello.me{{ page.url }}" />
+
+  <!-- IndieWeb -->
+  <link rel="webmention" href="https://webmention.io/stefanosello.me/webmention" />
+  <link rel="authorization_endpoint" href="https://indieauth.com/auth" />
+  <link rel="token_endpoint" href="https://tokens.indieauth.com/token" />
+  <link rel="me" href="https://github.com/stefanosello" />
+  <link rel="me" href="https://linkedin.com/in/stefano-sello" />
+  <link rel="me" href="mailto:sellostefano@gmail.com" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="{{ ogType if ogType else 'website' }}" />
+  <meta property="og:url"         content="https://stefanosello.me{{ page.url }}" />
+  <meta property="og:title"       content="{{ title }}" />
+  <meta property="og:description" content="{{ description }}" />
+  <meta property="og:image"       content="{{ ogImage if ogImage else 'https://stefanosello.me/assets/og.png' }}" />
+  <meta name="twitter:card"       content="summary" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+<div class="container">
+
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour scheme"></button>
+
+  {{ content | safe }}
+
+  <!-- ── Footer ─────────────────────────────────────────── -->
+  <footer>
+    <p>~$ built by hand. no frameworks harmed. <span class="cursor">█</span></p>
+    <div class="footer-badges">
+      <a class="badge" href="https://indiewebify.me/validate-h-card/?url=https://stefanosello.me/" target="_blank" rel="noopener noreferrer">IndieWeb ✓</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // ── Game of Life ──────────────────────────────────────────
+  (function () {
+    const canvas = document.getElementById('life-canvas');
+    if (!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const ctx = canvas.getContext('2d');
+    const CELL = 5;
+    const INTERVAL = 120;
+    let cols, rows, grid, next, animId, last = 0;
+
+    function getGreen() {
+      return getComputedStyle(document.documentElement)
+        .getPropertyValue('--accent-green').trim();
+    }
+
+    function mkGrid(rand) {
+      return Array.from({ length: cols }, () =>
+        Uint8Array.from({ length: rows }, () => rand && Math.random() < 0.3 ? 1 : 0)
+      );
+    }
+
+    function resize() {
+      cancelAnimationFrame(animId);
+      const dpr = window.devicePixelRatio || 1;
+      const W = canvas.offsetWidth;
+      const H = canvas.offsetHeight;
+      canvas.width  = W * dpr;
+      canvas.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cols = Math.floor(W / CELL);
+      rows = Math.floor(H / CELL);
+      grid = mkGrid(true);
+      next = mkGrid(false);
+      last = 0;
+      animId = requestAnimationFrame(loop);
+    }
+
+    function step() {
+      for (let x = 0; x < cols; x++) {
+        for (let y = 0; y < rows; y++) {
+          let n = 0;
+          for (let dx = -1; dx <= 1; dx++) {
+            for (let dy = -1; dy <= 1; dy++) {
+              if (dx === 0 && dy === 0) continue;
+              n += grid[(x + dx + cols) % cols][(y + dy + rows) % rows];
+            }
+          }
+          const a = grid[x][y];
+          next[x][y] = (a ? n === 2 || n === 3 : n === 3) ? 1 : 0;
+        }
+      }
+      [grid, next] = [next, grid];
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
+      ctx.fillStyle = getGreen();
+      for (let x = 0; x < cols; x++) {
+        for (let y = 0; y < rows; y++) {
+          if (grid[x][y]) ctx.fillRect(x * CELL + 0.5, y * CELL + 0.5, CELL - 1, CELL - 1);
+        }
+      }
+    }
+
+    function loop(ts) {
+      animId = requestAnimationFrame(loop);
+      if (ts - last < INTERVAL) return;
+      last = ts;
+      step();
+      draw();
+    }
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) cancelAnimationFrame(animId);
+      else { last = 0; animId = requestAnimationFrame(loop); }
+    });
+
+    window.addEventListener('resize', resize);
+    resize();
+  })();
+
+  // ── Typing animation ──────────────────────────────────────
+  (function () {
+    const el = document.getElementById('typed-name');
+    if (!el) return;
+    const text = 'stefano sello';
+    let i = 0;
+    function tick() {
+      if (i <= text.length) {
+        el.textContent = text.slice(0, i);
+        i++;
+        setTimeout(tick, i === 1 ? 300 : 80);
+      }
+    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      el.textContent = text;
+    } else {
+      tick();
+    }
+  })();
+
+  // ── Theme toggle ──────────────────────────────────────────
+  (function () {
+    const toggle = document.getElementById('theme-toggle');
+    const mql = window.matchMedia('(prefers-color-scheme: light)');
+
+    function effective() {
+      return document.documentElement.getAttribute('data-theme')
+        || (mql.matches ? 'light' : 'dark');
+    }
+
+    function refresh() {
+      toggle.textContent = effective() === 'dark' ? '☀ light' : '☾ dark';
+    }
+
+    toggle.addEventListener('click', function () {
+      const next = effective() === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      refresh();
+    });
+
+    mql.addEventListener('change', refresh);
+    refresh();
+  })();
+</script>
+</body>
+</html>

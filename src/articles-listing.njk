@@ -1,0 +1,21 @@
+---
+layout: base.njk
+title: Articles — Stefano Sello
+description: Technical articles on backend systems, distributed architectures, and developer tooling by Stefano Sello.
+permalink: /articles/
+---
+<section id="articles-listing">
+  <p class="section-label">/* articles */</p>
+  {% if collections.articles.length > 0 %}
+  <div class="article-list">
+    {% for post in collections.articles | reverse %}
+    <a class="article-row" href="{{ post.url }}">
+      <span class="article-row-title">▸ {{ post.data.title }}</span>
+      <span class="article-row-meta">{{ post.date | dateReadable }} · {{ post.templateContent | readingTime }} min read</span>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="article-meta">No articles yet — check back soon.</p>
+  {% endif %}
+</section>

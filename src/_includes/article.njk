@@ -1,0 +1,11 @@
+---
+layout: base.njk
+---
+<article class="article-content">
+  <header class="article-header">
+    <p class="section-label">// {{ title }}</p>
+    <p class="article-meta">{{ date | dateReadable }} · {{ content | readingTime }} min read</p>
+  </header>
+  {{ content | safe }}
+  <p class="article-back"><a href="/articles/">← /articles/</a></p>
+</article>
