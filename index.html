@@ -7,6 +7,14 @@
   <meta name="description" content="Senior Software Engineer specialising in backend systems, distributed architectures, and developer tooling. Based in Treviso, Italy." />
   <link rel="canonical" href="https://stefanosello.github.io/" />
 
+  <!-- IndieWeb -->
+  <link rel="webmention" href="https://webmention.io/stefanosello.github.io/webmention" />
+  <link rel="authorization_endpoint" href="https://indieauth.com/auth" />
+  <link rel="token_endpoint" href="https://tokens.indieauth.com/token" />
+  <link rel="me" href="https://github.com/stefanosello" />
+  <link rel="me" href="https://linkedin.com/in/stefano-sello" />
+  <link rel="me" href="mailto:sellostefano@gmail.com" />
+
   <!-- Open Graph -->
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="https://stefanosello.github.io/" />
@@ -29,16 +37,20 @@
 <div class="container">
 
   <!-- ── Header ─────────────────────────────────────────── -->
-  <header>
+  <header class="h-card">
+    <!-- h-card identity anchors -->
+    <a class="u-url u-uid" href="https://stefanosello.github.io/" rel="me" hidden></a>
+    <data class="p-name" value="Stefano Sello" hidden></data>
+
     <p class="prompt">
       <span class="prompt-glyph">~$ </span><span id="typed-name"></span>
     </p>
-    <p class="subtitle">Senior Software Engineer</p>
+    <p class="subtitle p-job-title">Senior Software Engineer</p>
     <div class="contact-row">
-      <a href="mailto:sellostefano@gmail.com" rel="noopener noreferrer">sellostefano@gmail.com</a>
-      <a href="https://github.com/stefanosello" target="_blank" rel="noopener noreferrer">github.com/stefanosello</a>
-      <a href="https://linkedin.com/in/stefano-sello" target="_blank" rel="noopener noreferrer">linkedin.com/in/stefano-sello</a>
-      <span>Treviso, Italy</span>
+      <a class="u-email" href="mailto:sellostefano@gmail.com" rel="me">sellostefano@gmail.com</a>
+      <a href="https://github.com/stefanosello" target="_blank" rel="me noopener noreferrer">github.com/stefanosello</a>
+      <a href="https://linkedin.com/in/stefano-sello" target="_blank" rel="me noopener noreferrer">linkedin.com/in/stefano-sello</a>
+      <span><span class="p-locality">Treviso</span>, <span class="p-country-name">Italy</span></span>
     </div>
     <a class="btn-cv" href="assets/CV_Stefano_Sello.pdf" download>↓ download cv</a>
   </header>
@@ -46,7 +58,7 @@
   <!-- ── Summary ────────────────────────────────────────── -->
   <section id="summary">
     <p class="section-label">// summary</p>
-    <p>Senior software engineer with a strong background in backend development and distributed
+    <p class="p-note">Senior software engineer with a strong background in backend development and distributed
     systems, both in microservices&nbsp;/ event-driven architectures and in sustainable monolithic
     solutions. Experienced in leading small teams, designing scalable systems, and delivering
     high-impact features in fast-paced environments.</p>
