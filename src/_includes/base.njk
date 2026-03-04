@@ -64,9 +64,9 @@
   <footer>
     <p>~$ built by hand. no frameworks harmed. <span class="cursor">█</span></p>
     <div class="footer-badges">
-      {% if page.url != "/" %}
-      <a class="badge" href="/">← home</a>
-      {% endif %}
+      {% if page.url != "/" %}<a class="badge" href="/">home</a>{% endif %}
+      {% if page.url != "/about/" %}<a class="badge" href="/about/">about</a>{% endif %}
+      {% if not page.url.startsWith("/articles") %}<a class="badge" href="/articles/">articles</a>{% endif %}
       <a class="badge" href="https://indiewebify.me/validate-h-card/?url=https://stefanosello.me/" target="_blank" rel="noopener noreferrer">IndieWeb ✓</a>
     </div>
   </footer>
