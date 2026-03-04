@@ -1,0 +1,335 @@
+/* =========================================================
+   stefanosello.github.io — stylesheet
+   ========================================================= */
+
+:root {
+  --bg-primary:    #0d1117;
+  --bg-surface:    #161b22;
+  --text-primary:  #e6edf3;
+  --text-muted:    #7d8590;
+  --accent-green:  #7ee787;
+  --comment-color: #6e7681;
+  --border:        #30363d;
+  --font:          'JetBrains Mono', monospace;
+}
+
+/* ── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.7;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  padding: 0 1rem;
+}
+
+a {
+  color: var(--accent-green);
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+/* ── Layout ─────────────────────────────────────────────── */
+.container {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 3rem 0 4rem;
+}
+
+section {
+  margin-bottom: 3rem;
+}
+
+/* ── Section labels (code-comment style) ─────────────────── */
+.section-label {
+  font-style: italic;
+  color: var(--comment-color);
+  font-size: 13px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+header {
+  margin-bottom: 3rem;
+}
+
+.prompt {
+  color: var(--accent-green);
+  font-size: clamp(22px, 5vw, 32px);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 0.25rem;
+}
+
+.prompt-glyph {
+  opacity: 0.7;
+}
+
+#typed-name {
+  min-width: 1ch;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-bottom: 1.25rem;
+}
+
+.contact-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.5rem;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+}
+
+.contact-row a {
+  color: var(--text-muted);
+}
+.contact-row a:hover {
+  color: var(--accent-green);
+  text-decoration: none;
+}
+
+.btn-cv {
+  display: inline-block;
+  border: 1px solid var(--border);
+  color: var(--accent-green);
+  padding: 0.35rem 0.9rem;
+  font-family: var(--font);
+  font-size: 12px;
+  border-radius: 3px;
+  transition: border-color 0.15s, background 0.15s;
+}
+.btn-cv:hover {
+  border-color: var(--accent-green);
+  background: rgba(126, 231, 135, 0.08);
+  text-decoration: none;
+}
+
+/* ── Summary ─────────────────────────────────────────────── */
+#summary p {
+  color: var(--text-primary);
+  max-width: 72ch;
+}
+
+/* ── Skills / Languages grid ─────────────────────────────── */
+.kv-grid {
+  display: grid;
+  gap: 0.55rem 0;
+}
+
+.kv-row {
+  display: grid;
+  grid-template-columns: 120px 16px 1fr;
+  align-items: baseline;
+  gap: 0 0.25rem;
+}
+
+.kv-key {
+  color: var(--accent-green);
+  font-weight: 600;
+}
+
+.kv-sep {
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.kv-val {
+  color: var(--text-primary);
+}
+
+/* ── Timeline ────────────────────────────────────────────── */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 0 1.5rem;
+}
+
+.tl-meta {
+  padding-top: 1px;
+}
+
+.tl-date {
+  color: var(--text-muted);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.tl-company {
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  margin-top: 0.15rem;
+}
+
+.tl-role {
+  color: var(--accent-green);
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 0.5rem;
+}
+
+.tl-bullets {
+  list-style: none;
+  margin-bottom: 0.75rem;
+}
+
+.tl-bullets li {
+  color: var(--text-primary);
+  font-size: 13px;
+  padding-left: 1.1rem;
+  position: relative;
+  margin-bottom: 0.3rem;
+}
+
+.tl-bullets li::before {
+  content: '▸';
+  color: var(--accent-green);
+  position: absolute;
+  left: 0;
+}
+
+.tl-desc {
+  color: var(--text-primary);
+  font-size: 13px;
+  margin-bottom: 0.75rem;
+}
+
+.stack-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.tag {
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 11px;
+  padding: 0.1rem 0.45rem;
+  border-radius: 3px;
+  font-family: var(--font);
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.tag:hover {
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+}
+
+/* ── Project cards ───────────────────────────────────────── */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.project-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.25rem 1.5rem;
+  transition: border-color 0.15s;
+}
+
+.project-card:hover {
+  border-color: var(--accent-green);
+}
+
+.project-title {
+  color: var(--accent-green);
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 0.15rem;
+}
+
+.project-lang {
+  color: var(--text-muted);
+  font-size: 11px;
+  margin-bottom: 0.6rem;
+}
+
+.project-desc {
+  color: var(--text-primary);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.project-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.project-link:hover {
+  color: var(--accent-green);
+  text-decoration: none;
+}
+
+/* ── Footer ──────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.cursor {
+  color: var(--accent-green);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor { animation-play-state: paused; }
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .timeline-item {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
+  .tl-meta {
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
+    flex-wrap: wrap;
+    margin-bottom: 0.35rem;
+  }
+
+  .tl-date::after {
+    content: '·';
+    margin-left: 0.5rem;
+    color: var(--border);
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 400px) {
+  body { font-size: 13px; }
+  .prompt { font-size: 20px; }
+  .kv-row { grid-template-columns: 100px 14px 1fr; }
+}
