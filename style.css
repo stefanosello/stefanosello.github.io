@@ -177,6 +177,14 @@ header {
   margin-top: 0.15rem;
 }
 
+.tl-company a {
+  color: var(--text-muted);
+}
+.tl-company a:hover {
+  color: var(--accent-green);
+  text-decoration: none;
+}
+
 .tl-role {
   color: var(--accent-green);
   font-weight: 700;
