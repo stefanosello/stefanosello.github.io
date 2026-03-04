@@ -173,6 +173,19 @@ header {
   text-decoration: none;
 }
 
+/* ── Game of Life canvas ─────────────────────────────────── */
+#life-canvas {
+  display: block;
+  width: 100%;
+  height: 80px;
+  margin-top: 1.75rem;
+  opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #life-canvas { display: none; }
+}
+
 /* ── Summary ─────────────────────────────────────────────── */
 #summary p {
   color: var(--text-primary);
