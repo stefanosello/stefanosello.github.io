@@ -37,7 +37,26 @@
 <body>
 <div class="container">
 
-  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour scheme"></button>
+  <!-- ── Header ─────────────────────────────────────────── -->
+  <header class="h-card">
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour scheme"></button>
+    <!-- h-card identity anchors -->
+    <a class="u-url u-uid" href="https://stefanosello.me/" rel="me" hidden></a>
+    <data class="p-name" value="Stefano Sello" hidden></data>
+
+    <p class="prompt">
+      <a class="prompt-home" href="/"><span class="prompt-glyph">~$ </span><span id="typed-name"></span></a>
+    </p>
+    <p class="subtitle p-job-title">Senior Software Engineer</p>
+    <div class="contact-row">
+      <a class="u-email" href="mailto:sellostefano@gmail.com" rel="me">sellostefano@gmail.com</a>
+      <a href="https://github.com/stefanosello" target="_blank" rel="me noopener noreferrer">github.com/stefanosello</a>
+      <a href="https://linkedin.com/in/stefano-sello" target="_blank" rel="me noopener noreferrer">linkedin.com/in/stefano-sello</a>
+      <span><span class="p-locality">Treviso</span>, <span class="p-country-name">Italy</span></span>
+    </div>
+    <a class="btn-cv" href="/assets/CV_Stefano_Sello.pdf" download>↓ download cv</a>
+    <canvas id="life-canvas" aria-hidden="true"></canvas>
+  </header>
 
   {{ content | safe }}
 
@@ -45,6 +64,9 @@
   <footer>
     <p>~$ built by hand. no frameworks harmed. <span class="cursor">█</span></p>
     <div class="footer-badges">
+      {% if page.url != "/" %}
+      <a class="badge" href="/">← home</a>
+      {% endif %}
       <a class="badge" href="https://indiewebify.me/validate-h-card/?url=https://stefanosello.me/" target="_blank" rel="noopener noreferrer">IndieWeb ✓</a>
     </div>
   </footer>

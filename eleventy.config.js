@@ -14,6 +14,11 @@ module.exports = function (eleventyConfig) {
     });
   });
 
+  eleventyConfig.addFilter("dateIso", function (date) {
+    const d = date instanceof Date ? date : new Date(date);
+    return d.toISOString().split("T")[0];
+  });
+
   eleventyConfig.addFilter("readingTime", function (content) {
     const text = (content || "").replace(/<[^>]+>/g, " ");
     const words = text.split(/\s+/).filter(Boolean).length;
