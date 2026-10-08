@@ -44,4 +44,14 @@ This is especially true for legacy code with 10+ years of commit history and for
 
 For new projects, it might be different, and I am experimenting with it. But for mature production systems, skipping the code is a gamble.
 
+<div class="video-container">
+  <iframe
+    src="https://www.youtube-nocookie.com/embed/3TNpOD6bov8"
+    title="LGTM (Looks Good to Me) - Claude Opus 5.5 music video"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen>
+  </iframe>
+</div>
+
 ~$ _
