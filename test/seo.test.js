@@ -47,7 +47,7 @@ for (const page of pages) {
   test(`semantic HTML, canonical and structured data: ${page.url}`, () => {
     assert.equal((page.html.match(/<h1\b/g) || []).length, 1);
     assert.equal((page.html.match(/<main\b/g) || []).length, 1);
-    assert.match(page.html, /<span id="typed-name">stefano sello<\/span>/);
+    assert.match(page.html, /<span id="typed-name" aria-hidden="true">stefano sello<\/span>/);
     const links = [...page.html.matchAll(/<link\b[^>]*>/g)].map((match) => attributes(match[0]));
     const canonical = links.filter((item) => item.rel === "canonical");
     assert.equal(canonical.length, 1);

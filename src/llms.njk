@@ -1,0 +1,33 @@
+---
+permalink: /llms.txt
+eleventyExcludeFromCollections: true
+---
+# {{ site.name | safe }}
+
+> {{ site.description | safe }}
+
+Personal portfolio and technical writing by {{ site.name | safe }}. Pages contain the
+full content in static HTML; JavaScript is only used for visual enhancements
+and the colour scheme toggle.
+
+## Profile
+
+- [Home]({{ '/' | absoluteUrl(site) }}): Introduction and recent articles.
+- [About {{ site.name | safe }}]({{ '/about/' | absoluteUrl(site) }}): Skills, work experience, open-source projects, education, and spoken languages.
+- [Work experience]({{ '/about/#experience' | absoluteUrl(site) }}): Engineering roles and responsibilities.
+- [Open-source projects]({{ '/about/#open-source' | absoluteUrl(site) }}): DotNetJsonApiClient and Arbac verifier.
+- [CV (PDF)]({{ '/assets/CV_Stefano_Sello.pdf' | absoluteUrl(site) }}): Downloadable curriculum vitae.
+
+## Articles
+
+- [All articles]({{ '/articles/' | absoluteUrl(site) }}): Technical writing, listed newest first.
+{% for post in collections.articles | reverse %}
+- [{{ post.data.title | safe }}]({{ post.url | absoluteUrl(site) }}): {{ post.data.description | safe }}
+{% endfor %}
+
+## Optional
+
+- [Sitemap]({{ '/sitemap.xml' | absoluteUrl(site) }}): Canonical page URLs.
+{% for profile in site.profiles %}
+- [{{ profile }}]({{ profile }}): External professional profile.
+{% endfor %}

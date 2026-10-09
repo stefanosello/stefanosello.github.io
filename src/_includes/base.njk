@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <script>/* prevent flash */ (function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}());</script>
+  <script>/* prevent flash; storage may be unavailable */ (function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}}());</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{ title | escape }}{% if ogType == "article" %} — {{ site.name | escape }}{% endif %}</title>
   <meta name="description" content="{{ description | escape }}" />
@@ -41,22 +41,22 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
 
   <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 <div class="container">
 
   <!-- ── Header ─────────────────────────────────────────── -->
   <header class="h-card">
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour scheme"></button>
+    <button class="theme-toggle" id="theme-toggle" type="button" disabled>Toggle theme</button>
     <!-- h-card identity anchors -->
     <a class="u-url u-uid" href="https://stefanosello.me/" rel="me" hidden></a>
-    <data class="p-name" value="Stefano Sello" hidden></data>
 
     {% if page.url == "/" %}<h1 class="prompt">{% else %}<p class="prompt">{% endif %}
-      <a class="prompt-home" href="/"><span class="prompt-glyph" aria-hidden="true">~$ </span><span id="typed-name">stefano sello</span></a>
+      <a class="prompt-home" href="/"><span class="sr-only p-name">{{ site.name | escape }}</span><span class="prompt-glyph" aria-hidden="true">~$ </span><span id="typed-name" aria-hidden="true">stefano sello</span></a>
     {% if page.url == "/" %}</h1>{% else %}</p>{% endif %}
     <p class="subtitle p-job-title">Senior Software Engineer</p>
     <div class="contact-row">
@@ -65,11 +65,11 @@
       <a href="https://linkedin.com/in/stefano-sello" target="_blank" rel="me noopener noreferrer">linkedin.com/in/stefano-sello</a>
       <span><span class="p-locality">Treviso</span>, <span class="p-country-name">Italy</span></span>
     </div>
-    <a class="btn-cv" href="/assets/CV_Stefano_Sello.pdf" download>↓ download cv</a>
+    <a class="btn-cv" href="/assets/CV_Stefano_Sello.pdf" download><span aria-hidden="true">↓ </span>download CV (PDF)</a>
     <canvas id="life-canvas" aria-hidden="true"></canvas>
   </header>
 
-  <main id="main-content">
+  <main id="main-content" tabindex="-1">
     {% if page.url != "/" %}
     <nav class="breadcrumbs" aria-label="Breadcrumb">
       <ol>
@@ -84,7 +84,7 @@
 
   <!-- ── Footer ─────────────────────────────────────────── -->
   <footer>
-    <p>~$ built by hand. no frameworks harmed. <span class="cursor">█</span></p>
+    <p>~$ built by hand. no frameworks harmed. <span class="cursor" aria-hidden="true">█</span></p>
     <nav class="footer-badges" aria-label="Site navigation">
       {% if page.url != "/" %}<a class="badge" href="/">home</a>{% endif %}
       {% if page.url != "/about/" %}<a class="badge" href="/about/">about</a>{% endif %}
@@ -102,6 +102,7 @@
     if (!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const ctx = canvas.getContext('2d');
+    if (!ctx) return;
     const CELL = 5;
     const INTERVAL = 120;
     let cols, rows, grid, next, animId, last = 0;
@@ -208,18 +209,21 @@
     }
 
     function refresh() {
-      toggle.textContent = effective() === 'dark' ? '☀ light' : '☾ dark';
+      const next = effective() === 'dark' ? 'light' : 'dark';
+      toggle.textContent = next === 'light' ? '☀ light' : '☾ dark';
+      toggle.setAttribute('aria-label', 'Switch to ' + next + ' colour scheme');
     }
 
     toggle.addEventListener('click', function () {
       const next = effective() === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) { /* keep the in-page preference */ }
       refresh();
     });
 
     mql.addEventListener('change', refresh);
     refresh();
+    toggle.disabled = false;
   })();
 </script>
 </body>
