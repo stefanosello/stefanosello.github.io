@@ -1,0 +1,14 @@
+<div class="youtube-embed" data-youtube-id="{{ youtube.id | escape }}" data-video-title="{{ youtube.title | escape }}">
+  <p class="video-title">{{ youtube.title | escape }}</p>
+  <div class="video-container" id="youtube-player-{{ youtube.id | escape }}">
+    <div class="video-placeholder">
+      <p>YouTube stays disconnected until you choose to load the player.</p>
+      <button class="video-control" type="button" data-video-load aria-controls="youtube-player-{{ youtube.id | escape }}" aria-describedby="youtube-notice-{{ youtube.id | escape }}" hidden>Load YouTube video</button>
+      <noscript><p>Enable JavaScript for the embedded player, or use the YouTube link below.</p></noscript>
+    </div>
+  </div>
+  <p class="video-notice" id="youtube-notice-{{ youtube.id | escape }}">By loading this optional player, you consent to connecting to Google/YouTube and sharing your IP address and browser/request information. YouTube may use cookies or browser storage for playback and measurement. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's Privacy Policy</a> and <a href="/privacy/#youtube">this site's video privacy details</a>.</p>
+  <button class="video-control" type="button" data-video-unload hidden>Unload YouTube video</button>
+  <p class="video-notice"><a href="https://www.youtube.com/watch?v={{ youtube.id | escape }}" target="_blank" rel="noopener noreferrer">Watch on YouTube instead</a> (opens in a new tab).</p>
+  <p class="sr-only" role="status" data-video-status></p>
+</div>

@@ -2,6 +2,23 @@
    stefanosello.github.io — stylesheet
    ========================================================= */
 
+/* Self-hosted JetBrains Mono; license and provenance: assets/fonts/. */
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/assets/fonts/JetBrainsMono-Italic-Variable.woff2') format('woff2');
+  font-style: italic;
+  font-weight: 100 800;
+  font-display: swap;
+}
+
 /* ── Colour tokens ───────────────────────────────────────── */
 :root {
   --bg-primary:    #0d1117;
@@ -92,11 +109,23 @@ a:hover { text-decoration: underline; }
   top: 0.5rem;
   left: 1rem;
   z-index: 1;
-  padding: 0.5rem 0.75rem;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
   background: var(--bg-surface);
-  transform: translateY(-200%);
 }
-.skip-link:focus { transform: translateY(0); }
+.skip-link:focus-visible {
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  overflow: visible;
+  clip-path: none;
+}
 
 /* ── Layout ─────────────────────────────────────────────── */
 .container {
@@ -623,15 +652,30 @@ main p a,
   margin-bottom: 0;
 }
 
+/* ── Optional YouTube player ─────────────────────────────── */
+.youtube-embed { margin: 1.5rem 0 2rem; }
+
 .video-container {
   width: 100%;
   aspect-ratio: 16 / 9;
-  margin: 1.5rem 0 2rem;
   border-radius: 6px;
   overflow: hidden;
   border: 1px solid var(--border);
   background: var(--bg-surface);
 }
+
+.video-placeholder {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  text-align: center;
+}
+.video-placeholder[hidden] { display: none; }
+.video-placeholder p { margin: 0; font-size: 12px; }
 
 .video-container iframe {
   width: 100%;
@@ -639,6 +683,20 @@ main p a,
   border: 0;
   display: block;
 }
+
+.video-control {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--accent-green);
+  font: inherit;
+  font-size: 12px;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+}
+.video-control:hover { border-color: var(--accent-green); }
+.article-content .video-title { font-size: 13px; font-weight: 600; }
+.article-content .video-notice { font-size: 12px; margin-top: 0.75rem; }
 
 /* ── Responsive ──────────────────────────────────────────── */
 @media (max-width: 640px) {

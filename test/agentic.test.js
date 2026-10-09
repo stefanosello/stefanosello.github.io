@@ -2,6 +2,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 const vm = require("node:vm");
+const { createHash } = require("node:crypto");
 const { test } = require("node:test");
 const site = require("../src/_data/site.json");
 
@@ -34,17 +35,30 @@ test("llms.txt is Markdown with working local links and every published article"
   }
 });
 
-test("all pages provide stable identity, keyboard navigation and non-blocking fonts", () => {
+test("all pages provide stable identity, keyboard navigation and versioned styles", () => {
+  const stylesheet = fs.readFileSync(path.join(output, "style.css"));
+  const hash = createHash("sha256").update(stylesheet).digest("hex").slice(0, 12);
   for (const filename of pages) {
     const html = fs.readFileSync(filename, "utf8");
     assert.match(html, /<a class="skip-link" href="#main-content">Skip to main content<\/a>/);
     assert.match(html, /<main id="main-content" tabindex="-1">/);
+    assert.ok(html.includes(`href="/style.css?v=${hash}"`), "Stylesheet URL must track its contents");
     assert.ok(html.includes(`<span class="sr-only p-name">${site.name}</span>`));
     assert.match(html, /id="typed-name" aria-hidden="true"/);
     assert.match(html, /<button[^>]+type="button" disabled>Toggle theme<\/button>/);
-    assert.match(html, /fonts\.googleapis\.com[^>]+media="print" onload="this.media='all'"/);
     assert.match(html, /download>.*download CV \(PDF\)<\/a>/);
   }
+});
+
+test("skip link is clipped until keyboard focus, without hiding it from accessibility", () => {
+  const css = fs.readFileSync(path.join(output, "style.css"), "utf8");
+  const hidden = css.match(/\.skip-link\s*\{([^}]+)\}/)[1];
+  assert.match(hidden, /clip-path: inset\(50%\)/);
+  assert.match(hidden, /overflow: hidden/);
+  assert.ok(!/display:\s*none|visibility:\s*hidden/.test(hidden));
+  const focused = css.match(/\.skip-link:focus-visible\s*\{([^}]+)\}/)[1];
+  assert.match(focused, /clip-path: none/);
+  assert.match(focused, /width: auto/);
 });
 
 test("theme works even when browser storage is denied", () => {

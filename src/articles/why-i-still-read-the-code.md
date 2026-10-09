@@ -2,6 +2,9 @@
 title: Why I Still Read the Code
 date: 2026-10-08
 description: Software engineering is shifting toward reviewing LLM output and high-level decisions. Here is why reading the code remains essential.
+youtube:
+  id: 3TNpOD6bov8
+  title: LGTM (Looks Good to Me) — Claude Opus 5.5 music video
 ---
 
 Recently (in the last 10 months, or so it feels to many of us) the job of the software engineer has changed a lot.
@@ -44,15 +47,6 @@ This is especially true for legacy code with 10+ years of commit history and for
 
 For new projects, it might be different, and I am experimenting with it. But for mature production systems, skipping the code is a gamble.
 
-<div class="video-container">
-  <iframe
-    src="https://www.youtube-nocookie.com/embed/3TNpOD6bov8"
-    title="LGTM (Looks Good to Me) - Claude Opus 5.5 music video"
-    loading="lazy"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerpolicy="strict-origin-when-cross-origin"
-    allowfullscreen>
-  </iframe>
-</div>
+{% include "youtube.njk" %}
 
 ~$ _

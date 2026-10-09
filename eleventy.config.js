@@ -1,4 +1,7 @@
 const { absoluteUrl, jsonLd, structuredData } = require("./lib/seo");
+const { createHash } = require("node:crypto");
+const { readFileSync } = require("node:fs");
+const path = require("node:path");
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("assets");
@@ -9,6 +12,10 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("absoluteUrl", absoluteUrl);
   eleventyConfig.addFilter("jsonLd", jsonLd);
   eleventyConfig.addFilter("structuredData", structuredData);
+  eleventyConfig.addFilter("assetUrl", function (filename) {
+    const hash = createHash("sha256").update(readFileSync(path.join(__dirname, filename))).digest("hex").slice(0, 12);
+    return `${filename}?v=${hash}`;
+  });
   eleventyConfig.addCollection("sitemap", function (collectionApi) {
     return collectionApi.getAll().filter((item) =>
       item.url && item.url.endsWith("/") && item.data.sitemap !== false

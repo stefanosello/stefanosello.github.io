@@ -16,7 +16,7 @@
   <link rel="token_endpoint" href="https://tokens.indieauth.com/token" />
   <link rel="me" href="https://github.com/stefanosello" />
   <link rel="me" href="https://linkedin.com/in/stefano-sello" />
-  <link rel="me" href="mailto:sellostefano@gmail.com" />
+  <link rel="me" href="mailto:{{ site.email | escape }}" />
 
   <!-- Open Graph -->
   <meta property="og:type"        content="{{ ogType if ogType else 'website' }}" />
@@ -33,17 +33,13 @@
   <meta property="article:author" content="{{ '/about/' | absoluteUrl(site) }}" />
   {% endif %}
 
-  <script type="application/ld+json">{{ {url: page.url, title: title, description: description, ogType: ogType, date: date, updated: updated, ogImage: ogImage} | structuredData(site) | jsonLd | safe }}</script>
+  <script type="application/ld+json">{{ {url: page.url, title: title, description: description, ogType: ogType, date: date, updated: updated, ogImage: ogImage, breadcrumbTitle: breadcrumbTitle} | structuredData(site) | jsonLd | safe }}</script>
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-
-  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="{{ '/style.css' | assetUrl }}" />
+  {% if youtube %}<script src="{{ '/assets/youtube.js' | assetUrl }}" defer></script>{% endif %}
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -60,7 +56,7 @@
     {% if page.url == "/" %}</h1>{% else %}</p>{% endif %}
     <p class="subtitle p-job-title">Senior Software Engineer</p>
     <div class="contact-row">
-      <a class="u-email" href="mailto:sellostefano@gmail.com" rel="me">sellostefano@gmail.com</a>
+      <a class="u-email" href="mailto:{{ site.email | escape }}" rel="me">{{ site.email | escape }}</a>
       <a href="https://github.com/stefanosello" target="_blank" rel="me noopener noreferrer">github.com/stefanosello</a>
       <a href="https://linkedin.com/in/stefano-sello" target="_blank" rel="me noopener noreferrer">linkedin.com/in/stefano-sello</a>
       <span><span class="p-locality">Treviso</span>, <span class="p-country-name">Italy</span></span>
@@ -75,7 +71,7 @@
       <ol>
         <li><a href="/">Home</a></li>
         {% if ogType == "article" %}<li><a href="/articles/">Articles</a></li>{% endif %}
-        <li aria-current="page">{% if ogType == "article" %}{{ title | escape }}{% elif page.url == "/about/" %}About{% else %}Articles{% endif %}</li>
+        <li aria-current="page">{% if breadcrumbTitle %}{{ breadcrumbTitle | escape }}{% elif ogType == "article" %}{{ title | escape }}{% elif page.url == "/about/" %}About{% else %}Articles{% endif %}</li>
       </ol>
     </nav>
     {% endif %}
@@ -89,6 +85,7 @@
       {% if page.url != "/" %}<a class="badge" href="/">home</a>{% endif %}
       {% if page.url != "/about/" %}<a class="badge" href="/about/">about</a>{% endif %}
       {% if not page.url.startsWith("/articles") %}<a class="badge" href="/articles/">articles</a>{% endif %}
+      <a class="badge" href="/privacy/"{% if page.url == "/privacy/" %} aria-current="page"{% endif %}>privacy</a>
       <a class="badge" href="https://indiewebify.me/validate-h-card/?url=https://stefanosello.me/" target="_blank" rel="noopener noreferrer">IndieWeb ✓</a>
     </nav>
   </footer>

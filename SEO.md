@@ -28,7 +28,7 @@ sites remain important. No analytics or tracking scripts are required.
   crawler directives remain in `robots.txt`.
 - Content and links are available in static HTML without JavaScript. The animated
   name has a stable accessible counterpart, and keyboard navigation has a skip
-  link and visible focus indicators. Google Fonts loads without blocking rendering.
+  link and visible focus indicators. Self-hosted fonts use `font-display: swap`.
 - WebMCP is not used: the site has no forms or application actions to expose.
   Its Lighthouse audits are experimental; tool registration is not needed to read
   this portfolio.

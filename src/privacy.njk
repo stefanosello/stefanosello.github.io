@@ -1,0 +1,114 @@
+---
+layout: base.njk
+title: Privacy — Stefano Sello
+description: How Stefano Sello's personal website handles hosting data, contact emails, local theme storage, and external links without advertising or visitor tracking scripts.
+permalink: /privacy/
+breadcrumbTitle: Privacy
+updated: 2026-10-09
+---
+<article class="article-content">
+  <header class="article-header">
+    <h1 class="section-label">// privacy</h1>
+    <p class="article-meta">Last updated <time datetime="{{ updated | dateIso }}">{{ updated | dateReadable }}</time></p>
+  </header>
+
+  <div class="e-content">
+    <p>This notice covers <a href="{{ site.url | escape }}">{{ site.url | escape }}</a>,
+      a personal portfolio and blog operated by {{ site.name | escape }} in Treviso, Italy.
+      For personal data handled by the site operator, the controller is {{ site.name | escape }}.
+      Contact: <a href="mailto:{{ site.email | escape }}">{{ site.email | escape }}</a>.</p>
+
+    <h2>Browsing and hosting</h2>
+    <p>The site is hosted on GitHub Pages. Your browser sends technical information,
+      such as your IP address and requested page, to the hosting infrastructure to
+      retrieve the site. GitHub states that it logs and stores visitors' IP addresses
+      for security purposes, including when visitors are not signed into GitHub.</p>
+    <p>The purpose is to deliver and secure this website. The site's legitimate
+      interest is making its content available and protecting it against abuse.
+      GitHub's own handling of hosting data, including retention and its legal bases,
+      is described in the
+      <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" rel="noreferrer">GitHub Privacy Statement</a>
+      and <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection" rel="noreferrer">GitHub Pages documentation</a>.</p>
+
+    <h2>Cookies and local storage</h2>
+    <p>The site's code does not set cookies or run advertising, profiling, or visitor
+      analytics scripts. Fonts and other initial page assets are served from this
+      website. YouTube players are optional and are not loaded until you explicitly
+      choose to enable one, as explained below.</p>
+    <p>If you change the colour scheme, the site stores one preference in your
+      browser's <code>localStorage</code>: the key <code>theme</code>, with the value
+      <code>light</code> or <code>dark</code>. This functional preference is read by the
+      site's JavaScript and is not sent to the site operator. It contains no visitor
+      identifier and is used only to remember the appearance you selected.</p>
+    <p>The preference has no automatic expiry. You can delete it through your browser's
+      site-data settings; the site then uses your device's colour-scheme preference.
+      Blocking local storage does not prevent reading the site or changing the theme
+      for the current page. There is no site-wide consent banner: no third-party player
+      or non-essential tracking is loaded on arrival. Optional video players have
+      their own opt-in controls.</p>
+
+    <h2>Contact emails</h2>
+    <p>There is no contact form. Clicking an email link opens your email application;
+      the website does not send a message itself. If you email the address above,
+      your email address, name if supplied, message, and any attachments are processed
+      to respond to your enquiry and manage the resulting correspondence.</p>
+    <p>The legal basis is the legitimate interest in responding to enquiries. Where
+      your request concerns entering into a contract, processing necessary to take
+      steps at your request before that contract is the relevant basis. Providing
+      information is voluntary, but an email address and enough detail to respond
+      are needed to answer your enquiry.</p>
+    <p>The mailbox is provided by Google (Gmail); messages are handled by that service.
+      See <a href="https://policies.google.com/privacy" rel="noreferrer">Google's Privacy Policy</a>.
+      Correspondence is retained for as long as necessary to address your request and
+      any ongoing relationship, or to meet applicable legal obligations or handle
+      legal claims. You can contact the address above to request deletion where applicable.</p>
+
+    <h2>Google Search Console</h2>
+    <p>Google Search Console reports how pages appear in Google Search; it is not
+      Google Analytics. Using Search Console with DNS or HTML ownership verification
+      does not install tracking scripts or cookies in visitors' browsers. This site
+      does not include Google Analytics or Google Tag Manager.</p>
+
+    <h2 id="youtube">Optional YouTube videos</h2>
+    <p>An article may offer an embedded YouTube player. Before you choose
+      <strong>Load YouTube video</strong>, the placeholder uses no YouTube player,
+      remote thumbnail, or connection to Google. You can read the article without
+      enabling the video, or follow its separate link to watch on YouTube.</p>
+    <p>Clicking the load button is your consent to connect to Google/YouTube for that
+      player. The player uses <code>youtube-nocookie.com</code> (YouTube's privacy-enhanced
+      mode), which is not a guarantee of no data processing. Google receives your
+      IP address, browser/request information, and this site's origin as a referrer.
+      The player may use cookies or browser storage for playback and measurement;
+      Google's own processing and retention are described in
+      <a href="https://policies.google.com/privacy" rel="noreferrer">Google's Privacy Policy</a>.</p>
+    <p>Your choice is not stored: each new page load starts with the player disabled.
+      Use <strong>Unload YouTube video</strong> to withdraw your choice and remove the
+      player. This stops further requests from that player, but does not undo data
+      already sent or clear storage YouTube may have created. You can manage that
+      storage through your browser's site-data settings.</p>
+
+    <h2>External services and international processing</h2>
+    <p>Other external services, including GitHub and LinkedIn, are linked rather than
+      embedded. Following a link takes you to a service with its own privacy practices.
+      External links opened in a new tab are configured not to send the referring page.</p>
+    <p>The pages also advertise Webmention.io and IndieAuth endpoints in their metadata.
+      These are not automatically requested by the site's page code. If you use those
+      services, they receive the information needed for the operation you request,
+      such as submitted URLs for a webmention or authentication information.</p>
+    <p>Hosting, email, and optional video providers may process data outside the European Economic Area,
+      including in the United States. Their linked privacy notices describe their
+      processing locations and applicable transfer safeguards, such as the EU–US
+      Data Privacy Framework and standard contractual clauses. Hosting-log retention
+      is determined by the hosting provider, not by a browser preference on this site.</p>
+
+    <h2>Your rights</h2>
+    <p>Where applicable under the GDPR, you can request access, correction, deletion,
+      restriction, or portability of personal data, and object to processing based
+      on legitimate interests. To exercise rights concerning data handled by the
+      site operator, email the address above. For data a provider handles independently,
+      its privacy notice explains how to contact it.</p>
+    <p>You can also lodge a complaint with a supervisory authority, including the
+      Italian <a href="https://www.garanteprivacy.it/" rel="noreferrer">Garante per la protezione dei dati personali</a>.
+      The site does not use automated decision-making or profiling of visitors.</p>
+  </div>
+</article>
