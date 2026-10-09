@@ -48,6 +48,7 @@ For new projects, it might be different, and I am experimenting with it. But for
   <iframe
     src="https://www.youtube-nocookie.com/embed/3TNpOD6bov8"
     title="LGTM (Looks Good to Me) - Claude Opus 5.5 music video"
+    loading="lazy"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
     referrerpolicy="strict-origin-when-cross-origin"
     allowfullscreen>

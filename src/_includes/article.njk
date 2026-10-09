@@ -2,14 +2,15 @@
 layout: base.njk
 ---
 <article class="h-entry article-content">
-  <a class="u-url p-name" href="{{ page.url }}" hidden>{{ title }}</a>
-  <a class="p-author h-card" href="https://stefanosello.me/" rel="author" hidden>Stefano Sello</a>
+  <a class="u-url" href="{{ page.url }}" hidden>{{ title | escape }}</a>
 
   <header class="article-header">
-    <p class="section-label">// {{ title }}</p>
+    <h1 class="section-label p-name">// {{ title | escape }}</h1>
     <p class="article-meta">
       <time class="dt-published" datetime="{{ date | dateIso }}">{{ date | dateReadable }}</time>
       · {{ content | readingTime }} min read
+      · by <a class="p-author h-card" href="/about/" rel="author">Stefano Sello</a>
+      {% if updated %}· updated <time class="dt-updated" datetime="{{ updated | dateIso }}">{{ updated | dateReadable }}</time>{% endif %}
     </p>
   </header>
 

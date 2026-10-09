@@ -4,9 +4,11 @@
   <meta charset="UTF-8" />
   <script>/* prevent flash */ (function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}());</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{{ title }}</title>
-  <meta name="description" content="{{ description }}" />
-  <link rel="canonical" href="https://stefanosello.me{{ page.url }}" />
+  <title>{{ title | escape }}{% if ogType == "article" %} — {{ site.name | escape }}{% endif %}</title>
+  <meta name="description" content="{{ description | escape }}" />
+  <meta name="author" content="{{ site.name | escape }}" />
+  <meta name="robots" content="max-image-preview:large" />
+  <link rel="canonical" href="{{ page.url | absoluteUrl(site) | escape }}" />
 
   <!-- IndieWeb -->
   <link rel="webmention" href="https://webmention.io/stefanosello.me/webmention" />
@@ -18,11 +20,20 @@
 
   <!-- Open Graph -->
   <meta property="og:type"        content="{{ ogType if ogType else 'website' }}" />
-  <meta property="og:url"         content="https://stefanosello.me{{ page.url }}" />
-  <meta property="og:title"       content="{{ title }}" />
-  <meta property="og:description" content="{{ description }}" />
-  <meta property="og:image"       content="{{ ogImage if ogImage else 'https://stefanosello.me/assets/og.png' }}" />
+  <meta property="og:url"         content="{{ page.url | absoluteUrl(site) | escape }}" />
+  <meta property="og:site_name"   content="{{ site.name | escape }}" />
+  <meta property="og:locale"      content="en_GB" />
+  <meta property="og:title"       content="{{ title | escape }}" />
+  <meta property="og:description" content="{{ description | escape }}" />
+  {% if ogImage %}<meta property="og:image" content="{{ ogImage | absoluteUrl(site) | escape }}" />{% endif %}
   <meta name="twitter:card"       content="summary" />
+  {% if ogType == "article" %}
+  <meta property="article:published_time" content="{{ date | dateIso }}" />
+  {% if updated %}<meta property="article:modified_time" content="{{ updated | dateIso }}" />{% endif %}
+  <meta property="article:author" content="{{ '/about/' | absoluteUrl(site) }}" />
+  {% endif %}
+
+  <script type="application/ld+json">{{ {url: page.url, title: title, description: description, ogType: ogType, date: date, updated: updated, ogImage: ogImage} | structuredData(site) | jsonLd | safe }}</script>
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
@@ -44,9 +55,9 @@
     <a class="u-url u-uid" href="https://stefanosello.me/" rel="me" hidden></a>
     <data class="p-name" value="Stefano Sello" hidden></data>
 
-    <p class="prompt">
-      <a class="prompt-home" href="/"><span class="prompt-glyph">~$ </span><span id="typed-name"></span></a>
-    </p>
+    {% if page.url == "/" %}<h1 class="prompt">{% else %}<p class="prompt">{% endif %}
+      <a class="prompt-home" href="/"><span class="prompt-glyph" aria-hidden="true">~$ </span><span id="typed-name">stefano sello</span></a>
+    {% if page.url == "/" %}</h1>{% else %}</p>{% endif %}
     <p class="subtitle p-job-title">Senior Software Engineer</p>
     <div class="contact-row">
       <a class="u-email" href="mailto:sellostefano@gmail.com" rel="me">sellostefano@gmail.com</a>
@@ -58,17 +69,28 @@
     <canvas id="life-canvas" aria-hidden="true"></canvas>
   </header>
 
-  {{ content | safe }}
+  <main id="main-content">
+    {% if page.url != "/" %}
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        {% if ogType == "article" %}<li><a href="/articles/">Articles</a></li>{% endif %}
+        <li aria-current="page">{% if ogType == "article" %}{{ title | escape }}{% elif page.url == "/about/" %}About{% else %}Articles{% endif %}</li>
+      </ol>
+    </nav>
+    {% endif %}
+    {{ content | safe }}
+  </main>
 
   <!-- ── Footer ─────────────────────────────────────────── -->
   <footer>
     <p>~$ built by hand. no frameworks harmed. <span class="cursor">█</span></p>
-    <div class="footer-badges">
+    <nav class="footer-badges" aria-label="Site navigation">
       {% if page.url != "/" %}<a class="badge" href="/">home</a>{% endif %}
       {% if page.url != "/about/" %}<a class="badge" href="/about/">about</a>{% endif %}
       {% if not page.url.startsWith("/articles") %}<a class="badge" href="/articles/">articles</a>{% endif %}
       <a class="badge" href="https://indiewebify.me/validate-h-card/?url=https://stefanosello.me/" target="_blank" rel="noopener noreferrer">IndieWeb ✓</a>
-    </div>
+    </nav>
   </footer>
 
 </div>

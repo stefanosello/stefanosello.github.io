@@ -84,6 +84,7 @@ section {
 /* ── Section labels (code-comment style) ─────────────────── */
 .section-label {
   font-style: italic;
+  font-weight: 400;
   color: var(--comment-color);
   font-size: 13px;
   border-bottom: 1px solid var(--border);
@@ -141,7 +142,8 @@ header {
 }
 
 #typed-name {
-  min-width: 1ch;
+  display: inline-block;
+  min-width: 13ch;
 }
 
 .subtitle {
@@ -226,6 +228,8 @@ header {
 
 .kv-val {
   color: var(--text-primary);
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 /* ── Timeline ────────────────────────────────────────────── */
@@ -328,6 +332,7 @@ header {
 }
 
 .project-card {
+  min-width: 0;
   background: var(--bg-surface);
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -360,6 +365,8 @@ header {
 
 .project-link {
   display: inline-block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
   margin-top: 0.75rem;
   font-size: 11px;
   color: var(--text-muted);
@@ -466,6 +473,24 @@ footer {
 }
 
 /* ── Article prose ───────────────────────────────────────── */
+.breadcrumbs {
+  color: var(--text-muted);
+  font-size: 11px;
+  margin-bottom: 1rem;
+}
+
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.6rem;
+  list-style: none;
+}
+
+.breadcrumbs li + li::before {
+  content: '/';
+  margin-right: 0.6rem;
+}
+
 .article-header {
   margin-bottom: 2rem;
 }
@@ -481,7 +506,7 @@ footer {
   font-size: 12px;
 }
 
-.article-content h1 {
+.article-content .e-content h1 {
   color: var(--accent-green);
   font-size: 18px;
   font-weight: 700;
