@@ -68,7 +68,12 @@
 /* ── Reset ─────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  /* Keep short and long pages aligned when scrollbars take up layout space. */
+  overflow-y: scroll;
+  scrollbar-gutter: stable both-edges;
+}
 
 body {
   font-family: var(--font);

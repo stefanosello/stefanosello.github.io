@@ -61,6 +61,13 @@ test("skip link is clipped until keyboard focus, without hiding it from accessib
   assert.match(focused, /width: auto/);
 });
 
+test("short and long pages reserve consistent scrollbar space", () => {
+  const css = fs.readFileSync(path.join(output, "style.css"), "utf8");
+  const root = css.match(/\bhtml\s*\{([^}]+)\}/)[1];
+  assert.match(root, /overflow-y:\s*scroll/);
+  assert.match(root, /scrollbar-gutter:\s*stable both-edges/);
+});
+
 test("theme works even when browser storage is denied", () => {
   const html = fs.readFileSync(path.join(output, "index.html"), "utf8");
   const scripts = [...html.matchAll(/<script>(.*?)<\/script>/gs)].map((match) => match[1]);
