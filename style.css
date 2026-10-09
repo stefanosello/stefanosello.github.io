@@ -199,7 +199,6 @@ header {
 /* ── Summary ─────────────────────────────────────────────── */
 #summary p {
   color: var(--text-primary);
-  max-width: 72ch;
 }
 
 /* ── Skills / Languages grid ─────────────────────────────── */
@@ -509,7 +508,6 @@ footer {
   font-size: 14px;
   line-height: 1.8;
   margin-bottom: 1rem;
-  max-width: 72ch;
 }
 
 .article-content ul,
@@ -517,7 +515,6 @@ footer {
   margin: 0.75rem 0 1rem 1.5rem;
   font-size: 14px;
   line-height: 1.8;
-  max-width: 72ch;
 }
 
 .article-content li {
@@ -564,7 +561,6 @@ footer {
 
 .video-container {
   width: 100%;
-  max-width: 72ch;
   aspect-ratio: 16 / 9;
   margin: 1.5rem 0 2rem;
   border-radius: 6px;
