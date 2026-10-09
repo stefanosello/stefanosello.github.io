@@ -51,6 +51,15 @@
     <!-- h-card identity anchors -->
     <a class="u-url u-uid" href="https://stefanosello.me/" rel="me" hidden></a>
 
+    <img class="avatar u-photo{% if page.url == '/' %} avatar--home{% endif %}"
+      src="/assets/profile-128.jpeg"
+      srcset="/assets/profile-64.jpeg 64w, /assets/profile-128.jpeg 128w, /assets/profile-256.jpeg 256w, /assets/profile-384.jpeg 384w"
+      sizes="{% if page.url == '/' %}128px{% else %}64px{% endif %}"
+      width="{% if page.url == '/' %}128{% else %}64{% endif %}"
+      height="{% if page.url == '/' %}128{% else %}64{% endif %}"
+      alt="Illustrated avatar of {{ site.name | escape }}"
+      loading="eager" decoding="async"{% if page.url == '/' %} fetchpriority="high"{% endif %} />
+
     {% if page.url == "/" %}<h1 class="prompt">{% else %}<p class="prompt">{% endif %}
       <a class="prompt-home" href="/"><span class="sr-only p-name">{{ site.name | escape }}</span><span class="prompt-glyph" aria-hidden="true">~$ </span><span id="typed-name" aria-hidden="true">stefano sello</span></a>
     {% if page.url == "/" %}</h1>{% else %}</p>{% endif %}

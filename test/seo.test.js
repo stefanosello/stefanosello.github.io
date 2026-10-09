@@ -110,6 +110,33 @@ test("internal links and local assets point to generated files", () => {
   }
 });
 
+test("each page has a responsive avatar, larger on the homepage", () => {
+  for (const page of pages) {
+    const avatars = [...page.html.matchAll(/<img\b[^>]*>/g)]
+      .map((match) => attributes(match[0]))
+      .filter((image) => (image.class || "").split(/\s+/).includes("avatar"));
+    assert.equal(avatars.length, 1, page.url);
+    const avatar = avatars[0];
+    const size = page.url === "/" ? "128" : "64";
+    assert.equal(avatar.width, size, page.url);
+    assert.equal(avatar.height, size, page.url);
+    assert.equal(avatar.sizes, `${size}px`, page.url);
+    assert.equal(avatar.class.includes("avatar--home"), page.url === "/");
+    assert.ok(avatar.class.split(/\s+/).includes("u-photo"));
+    assert.equal(avatar.alt, `Illustrated avatar of ${site.name}`);
+    assert.equal(avatar.loading, "eager");
+    assert.equal(avatar.decoding, "async");
+    if (page.url === "/") assert.equal(avatar.fetchpriority, "high");
+    for (const candidate of avatar.srcset.split(",")) {
+      const [filename, descriptor] = candidate.trim().split(/\s+/);
+      const image = fs.readFileSync(path.join(output, filename));
+      assert.equal(image.readUInt16BE(0), 0xffd8, `${filename} must be a JPEG`);
+      assert.match(descriptor, /^\d+w$/);
+      assert.ok(image.length < 50000, `${filename} should be optimized for avatar display`);
+    }
+  }
+});
+
 test("JSON-LD escapes script delimiters and preserves the original values", () => {
   const value = { headline: "</script><script>alert('x')</script> & \u2028\u2029" };
   const encoded = jsonLd(value);
